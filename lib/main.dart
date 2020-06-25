@@ -1,6 +1,8 @@
+import 'package:Shop_App/widgets/product_items.dart';
 import 'package:flutter/material.dart';
 
 import './screens/products_overview_screen.dart';
+import './screens/products_detail_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,6 +20,9 @@ class MyApp extends StatelessWidget {
         fontFamily: 'YanoneKaffeesatz',
       ),
       home: ProductOverviewScreen(),
+      routes: {
+        ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
+      },
     );
 }
 }
