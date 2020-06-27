@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models/product.dart';
 
-// Mix in class
+// Mix in class just like absract class but not strongly as that (its usally use for store widget or button)
 class ProductProvider with ChangeNotifier {
   List<Product> _items = [
     Product(
@@ -42,6 +42,10 @@ class ProductProvider with ChangeNotifier {
   List<Product> get items {
     // return a copy items
     return [..._items];
+  }
+
+  Product findById(String id) {
+    return _items.firstWhere((prod) => prod.id == id);
   }
 
   void addProduct() {
