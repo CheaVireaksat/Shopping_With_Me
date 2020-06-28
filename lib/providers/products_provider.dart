@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../models/product.dart';
+import './product.dart';
 
 // Mix in class just like absract class but not strongly as that (its usally use for store widget or button)
-class ProductProvider with ChangeNotifier {
+class Products with ChangeNotifier {
   List<Product> _items = [
     Product(
       id: 'p1',
