@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
 
 class CartItem {
   final String id;
@@ -26,16 +26,20 @@ class Cart with ChangeNotifier {
   }
 
   double get totalAmount {
-    double total = 0.0;
+    var total = 0.0;
     _items.forEach((key, cartItem) {
       total += cartItem.price * cartItem.quantity;
     });
     return total;
   }
 
-  void addItem(String productId, double price, String title) {
+  void addItem(
+    String productId,
+    double price,
+    String title,
+  ) {
     if (_items.containsKey(productId)) {
-      //change quantity...
+      // change quantity...
       _items.update(
         productId,
         (existingCartItem) => CartItem(
@@ -49,10 +53,11 @@ class Cart with ChangeNotifier {
       _items.putIfAbsent(
         productId,
         () => CartItem(
-            id: DateTime.now().toString(),
-            title: title,
-            price: price,
-            quantity: 1),
+          id: DateTime.now().toString(),
+          title: title,
+          price: price,
+          quantity: 1,
+        ),
       );
     }
     notifyListeners();

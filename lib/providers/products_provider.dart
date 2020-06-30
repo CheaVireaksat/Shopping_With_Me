@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import './product.dart';
 
-// Mix in class just like absract class but not strongly as that (its usally use for store widget or button)
 class Products with ChangeNotifier {
   List<Product> _items = [
     Product(
@@ -38,13 +37,12 @@ class Products with ChangeNotifier {
           'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
     ),
   ];
-
-  var _showFavoriteOnly = false;
+  // var _showFavoritesOnly = false;
 
   List<Product> get items {
-    //   if (_showFavoriteOnly) {
-    //     return _items.where((prodItem) => prodItem.isFavorite).toList();
-    //   }
+    // if (_showFavoritesOnly) {
+    //   return _items.where((prodItem) => prodItem.isFavorite).toList();
+    // }
     return [..._items];
   }
 
@@ -57,18 +55,17 @@ class Products with ChangeNotifier {
   }
 
   // void showFavoritesOnly() {
-  //   _showFavoriteOnly = true;
+  //   _showFavoritesOnly = true;
   //   notifyListeners();
   // }
 
   // void showAll() {
-  //   _showFavoriteOnly = false;
+  //   _showFavoritesOnly = false;
   //   notifyListeners();
   // }
 
   void addProduct() {
     // _items.add(value);
-    // listening to some change in the widgets
     notifyListeners();
   }
 }
