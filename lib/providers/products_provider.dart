@@ -14,7 +14,7 @@ class Products with ChangeNotifier {
     ),
     Product(
       id: 'p2',
-      title: 'Joggers',
+      title: 'A Pairs of Joggers',
       description: 'A nice pair of Jogger.',
       price: 59.99,
       imageUrl:
@@ -63,5 +63,15 @@ class Products with ChangeNotifier {
         id: DateTime.now().toString());
     _items.add(newProduct);
     notifyListeners();
+  }
+
+  void updateProduct(String id, Product newProduct) {
+    final prodIndex = _items.indexWhere((prod) => prod.id == id);
+    if (prodIndex >= 0) {
+      _items[prodIndex] = newProduct;
+      notifyListeners();
+    } else {
+      print('...');
+    }
   }
 }
