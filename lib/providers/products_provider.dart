@@ -59,7 +59,8 @@ class Products with ChangeNotifier {
   void addProduct(Product product) {
     // This method will send the jason file to the server then create products by itself
     const url = 'https://shopapp-c46c7.firebaseio.com/products.json';
-    http.post(
+    http
+        .post(
       url,
       body: json.encode({
         'title': product.title,
@@ -68,15 +69,18 @@ class Products with ChangeNotifier {
         'price': product.price,
         'isFavorite': product.isFavorite,
       }),
-    );
-    final newProduct = Product(
-        title: product.title,
-        description: product.description,
-        price: product.price,
-        imageUrl: product.imageUrl,
-        id: DateTime.now().toString());
-    _items.add(newProduct);
-    notifyListeners();
+    )
+        .then((response) {
+      print(json.decode(response.body));
+      final newProduct = Product(
+          title: product.title,
+          description: product.description,
+          price: product.price,
+          imageUrl: product.imageUrl,
+          id: json.decode(response.body));
+      _items.add(newProduct);
+      notifyListeners();
+    });
   }
 
   void updateProduct(String id, Product newProduct) {
