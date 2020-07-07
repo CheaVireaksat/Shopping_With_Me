@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import './product.dart';
 
@@ -55,6 +57,18 @@ class Products with ChangeNotifier {
   }
 
   void addProduct(Product product) {
+    // This method will send the jason file to the server then create products by itself
+    const url = 'https://shopapp-c46c7.firebaseio.com/products.json';
+    http.post(
+      url,
+      body: json.encode({
+        'title': product.title,
+        'description': product.description,
+        'imageUrl': product.imageUrl,
+        'price': product.price,
+        'isFavorite': product.isFavorite,
+      }),
+    );
     final newProduct = Product(
         title: product.title,
         description: product.description,
