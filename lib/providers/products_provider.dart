@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -56,10 +57,19 @@ class Products with ChangeNotifier {
     return _items.firstWhere((prod) => prod.id == id);
   }
 
-  void addProduct(Product product) {
-    // This method will send the jason file to the server then create products by itself
+  // void showFavoritesOnly() {
+  //   _showFavoritesOnly = true;
+  //   notifyListeners();
+  // }
+
+  // void showAll() {
+  //   _showFavoritesOnly = false;
+  //   notifyListeners();
+  // }
+
+  Future<void> addProduct(Product product) {
     const url = 'https://shopapp-c46c7.firebaseio.com/products.json';
-    http
+    return http
         .post(
       url,
       body: json.encode({
@@ -71,14 +81,15 @@ class Products with ChangeNotifier {
       }),
     )
         .then((response) {
-      print(json.decode(response.body));
       final newProduct = Product(
-          title: product.title,
-          description: product.description,
-          price: product.price,
-          imageUrl: product.imageUrl,
-          id: json.decode(response.body));
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        imageUrl: product.imageUrl,
+        id: json.decode(response.body)['name'],
+      );
       _items.add(newProduct);
+      // _items.insert(0, newProduct); // at the start of the list
       notifyListeners();
     });
   }
