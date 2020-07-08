@@ -57,16 +57,6 @@ class Products with ChangeNotifier {
     return _items.firstWhere((prod) => prod.id == id);
   }
 
-  // void showFavoritesOnly() {
-  //   _showFavoritesOnly = true;
-  //   notifyListeners();
-  // }
-
-  // void showAll() {
-  //   _showFavoritesOnly = false;
-  //   notifyListeners();
-  // }
-
   Future<void> fetchAndSetProducts() async {
     //Error handling method
     const url = 'https://shopapp-c46c7.firebaseio.com/products.json';
