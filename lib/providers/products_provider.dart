@@ -23,22 +23,22 @@ class Products with ChangeNotifier {
       imageUrl:
           'https://i.ibb.co/Ldnkv6k/Screen-Shot-2020-07-04-at-12-37-24-AM.png',
     ),
-    Product(
-      id: 'p3',
-      title: 'Jeans',
-      description: 'Warm and cozy - exactly what you need for the winter.',
-      price: 19.99,
-      imageUrl:
-          'https://i.ibb.co/Ch11yHv/Screen-Shot-2020-07-04-at-12-36-58-AM.png',
-    ),
-    Product(
-      id: 'p4',
-      title: 'Hoodies',
-      description: 'A warm Hoddies for winter',
-      price: 49.99,
-      imageUrl:
-          'https://i.ibb.co/pWpC4vj/Screen-Shot-2020-07-04-at-12-37-12-AM.png',
-    ),
+    // Product(
+    //   id: 'p3',
+    //   title: 'Jeans',
+    //   description: 'Warm and cozy - exactly what you need for the winter.',
+    //   price: 19.99,
+    //   imageUrl:
+    //       'https://i.ibb.co/Ch11yHv/Screen-Shot-2020-07-04-at-12-36-58-AM.png',
+    // ),
+    // Product(
+    //   id: 'p4',
+    //   title: 'Hoodies',
+    //   description: 'A warm Hoddies for winter',
+    //   price: 49.99,
+    //   imageUrl:
+    //       'https://i.ibb.co/pWpC4vj/Screen-Shot-2020-07-04-at-12-37-12-AM.png',
+    // ),
   ];
   // var _showFavoritesOnly = false;
 
@@ -66,6 +66,17 @@ class Products with ChangeNotifier {
   //   _showFavoritesOnly = false;
   //   notifyListeners();
   // }
+
+  Future<void> fetchAndSetProducts() async {
+    //Error handling method
+    const url = 'https://shopapp-c46c7.firebaseio.com/products.json';
+    try {
+      final response = await http.get(url);
+      print(json.decode(response.body));
+    } catch (error) {
+      throw (error);
+    }
+  }
 
   Future<void> addProduct(Product product) async {
     const url = 'https://shopapp-c46c7.firebaseio.com/products.json';
