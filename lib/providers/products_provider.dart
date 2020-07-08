@@ -7,22 +7,22 @@ import './product.dart';
 
 class Products with ChangeNotifier {
   List<Product> _items = [
-    Product(
-      id: 'p1',
-      title: 'White T-Shirt',
-      description: 'A White shirt - it is pretty White!',
-      price: 29.99,
-      imageUrl:
-          'https://i.ibb.co/rHMLVk9/Screen-Shot-2020-07-04-at-12-37-32-AM.png',
-    ),
-    Product(
-      id: 'p2',
-      title: 'A Pairs of Joggers',
-      description: 'A nice pair of Jogger.',
-      price: 59.99,
-      imageUrl:
-          'https://i.ibb.co/Ldnkv6k/Screen-Shot-2020-07-04-at-12-37-24-AM.png',
-    ),
+    // Product(
+    //   id: 'p1',
+    //   title: 'White T-Shirt',
+    //   description: 'A White shirt - it is pretty White!',
+    //   price: 29.99,
+    //   imageUrl:
+    //       'https://i.ibb.co/rHMLVk9/Screen-Shot-2020-07-04-at-12-37-32-AM.png',
+    // ),
+    // Product(
+    //   id: 'p2',
+    //   title: 'A Pairs of Joggers',
+    //   description: 'A nice pair of Jogger.',
+    //   price: 59.99,
+    //   imageUrl:
+    //       'https://i.ibb.co/Ldnkv6k/Screen-Shot-2020-07-04-at-12-37-24-AM.png',
+    // ),
     // Product(
     //   id: 'p3',
     //   title: 'Jeans',
@@ -72,7 +72,20 @@ class Products with ChangeNotifier {
     const url = 'https://shopapp-c46c7.firebaseio.com/products.json';
     try {
       final response = await http.get(url);
-      print(json.decode(response.body));
+      final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      final List<Product> loadedProducts = [];
+      extractedData.forEach((prodId, prodData) {
+        loadedProducts.add(Product(
+            id: prodId,
+            title: prodData['title'],
+            description: prodData['description'],
+            imageUrl: prodData['imageUrl'],
+            price: prodData['price'],
+            isFavorite: prodData['isFavorite']));
+      });
+      _items = loadedProducts;
+      notifyListeners();
+      // print(json.decode(response.body));
     } catch (error) {
       throw (error);
     }
